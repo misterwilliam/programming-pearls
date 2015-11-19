@@ -2,19 +2,11 @@ import unittest
 
 
 def GetSource(index, length, rotationAmount):
-    retVal = index + rotationAmount
-    if retVal < length:
-        return retVal
-    else:
-        return retVal - length
+    return (index + rotationAmount) % length
 
 
 def GetDest(index, length, rotationAmount):
-    retVal = index - rotationAmount
-    if retVal >= 0:
-        return retVal
-    else:
-        return retVal + length
+    return (index - rotationAmount) % length
 
 
 def Rotate(vector, rotationAmount):
