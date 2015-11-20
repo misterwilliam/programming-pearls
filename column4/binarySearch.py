@@ -5,14 +5,23 @@ import unittest
 def HasElement(vector, element):
     # It seems that binary search is not hard to write correctly anymore with Python
     vector.sort()
-    if len(vector) == 0:
-        return False
-    elif len(vector) == 1:
-        return vector[0] == element
-    else:
-        midpoint = len(vector) // 2
-        return (HasElement(vector[:midpoint], element) or
-                HasElement(vector[midpoint:], element))
+
+    def _BinarySearch(begin, end, element):
+        if begin == end:
+            return False
+        elif end - begin == 1:
+            return vector[begin] == element
+        else:
+            midpoint = begin + (end - begin) // 2
+            midpointValue = vector[midpoint]
+            if midpointValue == element:
+                return True
+            elif midpointValue > element:
+                return _BinarySearch(begin, midpoint, element)
+            else:
+                return _BinarySearch(midpoint, end, element)
+
+    return _BinarySearch(0, len(vector), element)
 
 
 class HasElementTests(unittest.TestCase):
